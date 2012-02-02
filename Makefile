@@ -31,11 +31,3 @@ uninstall:
 	@echo "Uninstalling target:"
 	@rm -f $(INSTALL_DIR)$(TARGET)
 	@echo -e $(SUCCESS_MSG)
-
-archive: build
-	@echo "Archiving source:"
-	#@rm -f archive.tar.bz2
-	#@tar -cjf archive.tar.bz2 $(SOURCE) Makefile README*
-	@echo -e $(SUCCESS_MSG)
-
-
