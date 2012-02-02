@@ -1,19 +1,19 @@
-stray - a unix cat-like program that introduces random errors into stdout
-=========================================================================
-
-Author
-======
-Josh Komoroske <github.com/joshdk>
+STRAY - a cat-like program that introduces random error
+=======================================================
 
 
 Building
-========
-$ make
+--------
+	$ make
 
 Installing
-==========
-# make install
+----------
+	# make install
 
 Uninstalling
-============
-# make uninstall
+------------
+	# make uninstall
+
+Usage
+-----
+	* $ echo <data> | stray <percent>
