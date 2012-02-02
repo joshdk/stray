@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
+#include <string.h>
 
 char stray(unsigned char c,double chance){
 	unsigned char mask=0;
@@ -20,9 +20,22 @@ char stray(unsigned char c,double chance){
 
 
 int main(int argc,char **argv){
-	
-	srand(time(NULL));
-	
+
+	if(argc>=2){
+		if(!strcmp(argv[1],"--help")){//help
+			printf("Usage: stray [PERCENT]\n");
+			printf("Introduce error to standard out based on input on standard in.\n");
+			printf("\n");
+			printf("Examples:\n");
+			printf("  Introduce 10%% error to the data \"helloworld\"\n");
+			printf("  $ echo 'helloworld' | stray 10\n");
+			return 0;
+		}else if(!strcmp(argv[1],"--version")){//version
+			printf("stray version 1.0\n");
+			return 0;
+		}
+	}
+
 	double percent=0.0;
 	if(argc>=2){
 		percent=atof(argv[1]);
@@ -33,6 +46,7 @@ int main(int argc,char **argv){
 		percent=100.0;
 	}
 
+	srand(time(NULL));
 	while(1){
 		int c=fgetc(stdin);
 		if(c==EOF){
