@@ -2,12 +2,13 @@
 #include <stdlib.h>
 #include <time.h>
 #include <string.h>
+#include <limits.h>
 
 char stray(unsigned char c,double chance){
 	unsigned char mask=0;
 	for(int n=0;n<8;++n){
 		mask<<=1;
-		if((double)rand() < (chance/100)*2147483647){
+		if((double)rand() < (chance/100)*INT_MAX){
 			//flip bit
 			mask|=!(c&(128>>n));
 		}else{
