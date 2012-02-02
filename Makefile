@@ -1,33 +1,44 @@
-CC 	 	    = gcc
-CFLAGS    = -std=c99 -Wall -Wextra
-TARGET    = build/stray
-SOURCE    = src/main.c
-INSTALL   = /usr/bin/stray
-SUCCESS_MSG = "  [\e[32m DONE \e[0m]"
+NAME                 = stray
+
+BUILD_DIR            = ./build
+BUILD_PROG           = $(BUILD_DIR)/$(NAME)
+BUILD_FILES          = $(BUILD_DIR)/main.o
+
+INSTALL_DIR          = /usr/bin
+INSTALL_PROG         = $(INSTALL_DIR)/$(NAME)
+
+CC                 = gcc
+CFLAGS             = -std=c99 -Wall -Wextra
+
+SUCCESS_MSG        = '  [\e[32m DONE \e[0m]'
+
 
 all: build
 
-build: $(TARGET)
+build: $(BUILD_PROG)
 
-$(TARGET): $(SOURCE)
-	@echo "Building target:"
-	@mkdir -p build
-	@$(CC) $(CFLAGS) -o $(TARGET) $(SOURCE)
+$(BUILD_PROG): $(BUILD_FILES)
+	@echo 'Building stray:'
+	@$(CC) $(CFLAGS) $^ -o $@
 	@echo -e $(SUCCESS_MSG)
 
+./build/main.o: ./src/main.c
+	@mkdir -p build/
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 clean:
-	@echo "Cleaning workspace:"
-	@rm -f $(TARGET)
+	@echo 'Cleaning workspace:'
+	@rm -rf build/
 	@echo -e $(SUCCESS_MSG)
 
 rebuild: clean build
 
-install: build
-	@echo "Installing target:"
-	@cp -f $(TARGET) $(INSTALL_DIR)
+install: build $(CONFIG_FILES)
+	@echo 'Installing stray:'
+	@install -m 755 $(BUILD_PROG) $(INSTALL_PROG)
 	@echo -e $(SUCCESS_MSG)
 
 uninstall:
-	@echo "Uninstalling target:"
-	@rm -f $(INSTALL_DIR)$(TARGET)
+	@echo 'Uninstalling stray:'
+	@rm -f $(INSTALL_PROG)
 	@echo -e $(SUCCESS_MSG)
