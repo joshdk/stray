@@ -16,4 +16,4 @@ Uninstalling
 
 Usage
 -----
-	* $ echo <data> | stray <percent>
+	$ echo <data> | stray <percent>
